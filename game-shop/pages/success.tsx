@@ -5,6 +5,7 @@ import {useStateContext} from "../context/StateContext";
 import {runConfetti} from "../lib/utils";
 
 function Success() {
+    // @ts-ignore
     const {setCartItems, setTotalPrice, setTotalQuantities} = useStateContext();
     useEffect(() => {
         localStorage.clear();

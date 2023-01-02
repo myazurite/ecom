@@ -9,6 +9,7 @@ import getStripe from "../lib/getStripe";
 
 function Cart() {
     const cartRef = React.useRef() as React.MutableRefObject<HTMLInputElement>;
+    // @ts-ignore
     const {totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove} = useStateContext();
 
     const handleCheckout = async () => {
@@ -25,7 +26,7 @@ function Cart() {
         if(response.status === 500) return;
         const data = await response.json();
         toast.loading('Redirecting...');
-        await stripe.redirectToCheckout({sessionId: data.id});
+        await stripe!.redirectToCheckout({sessionId: data.id});
     }
 
     return (
@@ -50,7 +51,7 @@ function Cart() {
                 )}
 
                 <div className="product-container">
-                    {cartItems.length >= 1 && cartItems.map((item) => {
+                    {cartItems.length >= 1 && cartItems.map((item:any) => {
                         return(
                             <div className="product" key={item._id}>
                                 <img src={`${urlFor(item.image[0])}`} className="cart-product-image" alt=""/>

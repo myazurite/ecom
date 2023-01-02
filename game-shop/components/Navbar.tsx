@@ -4,6 +4,7 @@ import Cart from "./Cart";
 import {useStateContext} from "../context/StateContext";
 
 function Navbar() {
+    // @ts-ignore
     const {showCart, setShowCart, totalQuantities} = useStateContext();
     return(
         <div className="navbar-container">

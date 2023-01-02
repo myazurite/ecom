@@ -7,6 +7,7 @@ import {useStateContext} from "../../context/StateContext";
 function ProductDetails({product, products}:any) {
     const {image, name, details, price} = product;
     const [index, setIndex] = useState(0);
+    // @ts-ignore
     const {decQty, incQty, qty, onAdd, setShowCart} = useStateContext();
 
     function handleBuyNow() {
@@ -22,7 +23,7 @@ function ProductDetails({product, products}:any) {
                         <img src={`${urlFor(image && image[index])}`} className="product-detail-image"/>
                     </div>
                     <div className="small-images-container">
-                        {image.map((item, i:number|string) => {
+                        {image.map((item:any, i:any) => {
                             return <img key={i}
                                 src={`${urlFor(item)}`}
                                 className={i === index ? "small-image selected-image" : 'small-image'}

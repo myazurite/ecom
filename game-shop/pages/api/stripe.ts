@@ -2,7 +2,7 @@ import Stripe from 'stripe';
 
 const stripe = require('stripe')(process.env.NEXT_PUBLIC_SRIPE_SECRET_KEY);
 
-export default async function handler(req, res) {
+export default async function handler(req: { method: string; body: any[]; headers: { origin: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: any): void; new(): any; }; end: { (arg0: string): void; new(): any; }; }; setHeader: (arg0: string, arg1: string) => void; }) {
     console.log(process.env.NEXT_PUBLIC_SRIPE_SECRET_KEY)
     if (req.method === 'POST') {
         console.log('body: ' + typeof req.body)
@@ -43,6 +43,7 @@ export default async function handler(req, res) {
 
             res.status(200).json(session);
         } catch (err) {
+            // @ts-ignore
             res.status(err.statusCode || 500).json(err.message);
         }
     } else {

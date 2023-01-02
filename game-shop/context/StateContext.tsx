@@ -11,9 +11,9 @@ export function StateContext({children}:any) {
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalQuantities, setTotalQuantities] = useState(0);
     const [qty, setQty] = useState(1);
-    let foundProduct;
+    let foundProduct:any;
 
-    const onAdd = (product, quantity) => {
+    const onAdd = (product: { _id: any; price: number; quantity: any; name: any; }, quantity: number) => {
         const checkProductInCart = cartItems.find((item:any) => item._id === product._id);
         setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
         setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
@@ -30,13 +30,16 @@ export function StateContext({children}:any) {
             setCartItems(updatedCartItems);
         } else {
             product.quantity = quantity;
+            // @ts-ignore
             setCartItems([...cartItems, {...product}]);
         }
         toast.success(`${qty} ${product.name} added to cart.`);
     }
 
-    const onRemove = (product) => {
+    const onRemove = (product: { _id: any; }) => {
+        // @ts-ignore
         foundProduct = cartItems.find((item) => item._id === product._id);
+        // @ts-ignore
         const newCartItems = cartItems.filter((item) => item._id !== product._id);
         setTotalPrice((prevTotalPrice) => prevTotalPrice - Number((foundProduct.price * foundProduct.quantity).toFixed(2)));
         setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity);
@@ -44,6 +47,7 @@ export function StateContext({children}:any) {
     }
 
     const toggleCartItemQuantity = (id:string|number, value:string|number) => {
+        // @ts-ignore
         foundProduct = cartItems.find((item) => item._id === id);
         // let index = cartItems.findIndex((product) => product._id === id);
         // const newCartItems = cartItems.filter((item) => item._id !== id);
@@ -51,8 +55,10 @@ export function StateContext({children}:any) {
             // setCartItems([...newCartItems, {...foundProduct, quantity:foundProduct.quantity + 1}]);
             // @ts-ignore
             setCartItems( prevCartItems => prevCartItems.map((item) => {
-                    if (item._id === id){
-                        return {...item, quantity: foundProduct.quantity + 1}
+                    // @ts-ignore
+                if (item._id === id){
+                        // @ts-ignore
+                    return {...item, quantity: foundProduct.quantity + 1}
                     }
                     return item
                 })
@@ -65,7 +71,9 @@ export function StateContext({children}:any) {
                 // @ts-ignore
                 setCartItems( prevCartItems =>
                     prevCartItems.map( item => {
+                        // @ts-ignore
                         if (item._id === id){
+                            // @ts-ignore
                             return {...item, quantity: foundProduct.quantity - 1}
                         }
                         return item
@@ -88,6 +96,7 @@ export function StateContext({children}:any) {
     }
 
     return (
+        // @ts-ignore
         <Context.Provider value={{
             showCart,
             setShowCart,
