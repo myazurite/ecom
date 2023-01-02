@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import Link from 'next/link';
 import {BsBagCheckFill} from "react-icons/bs";
 import {useStateContext} from "../context/StateContext";
-import {runConfetti} from "../lib/utils";
+// import {runConfetti} from "../lib/utils";
 
 function Success() {
     // @ts-ignore
@@ -12,7 +12,7 @@ function Success() {
         setCartItems([]);
         setTotalPrice(0);
         setTotalQuantities(0);
-        runConfetti();
+        // runConfetti();
     }, []);
 
 
